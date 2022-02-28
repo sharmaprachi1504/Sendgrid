@@ -6,7 +6,7 @@ pipeline {
         //scannerHome = tool 'SonarScanner 4.0'
                }
     
-    agent { label 'Calculator_Windows_Agent' }
+    agent any
     
     stages {
         stage('Building Project') {
