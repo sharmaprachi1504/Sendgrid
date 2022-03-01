@@ -1,37 +1,36 @@
 pipeline {
-    environment {
-        registry = "narendrakumar02/aqt_practice_data"
-        registryCredential = 'Docker_Token'
-        dockerImage = ''
-        //scannerHome = tool 'SonarScanner 4.0'
-               }
-    
-    agent any
-    
+
+  agent any
+  tools {
+        maven "MAVEN_HOME"
+        jdk "JAVA_HOME"
+    }
+  //{
+        //docker {
+          //  image 'maven:3.8.1-adoptopenjdk-11'
+            //args '-v $HOME/.m2:/root/.m2'
+        //}}
+
+//change
     stages {
+                                    
+         
         stage('Building Project') {
             steps {
-                bat 'mvn clean install'
-                bat 'mvn jacoco:prepare-agent test jacoco:report'
+                  sh 'mvn clean package'
                   }   
-                           }
+                                  }
     
         
-      stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('Sonar_server') {
-                   bat 'mvn sonar:sonar'
-                }
-            }
-        }
-        stage("Quality gate") {
-            steps {
-               //timeout(time: 1, unit: 'MINUTES'){ 
-               waitForQualityGate abortPipeline: true
-            ///}
-        }
-        }
-       stage('Uploading Artifacts') {
+        stage('SonarQube Analysis') {
+            steps{
+                
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.43.229:8085'
+                 }
+                                    }//docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube:5.5
+                                    
+        
+      /* stage('Uploading Artifacts') {
            steps {
                script {
                    def server = Artifactory.server 'Artifactory'
@@ -41,18 +40,18 @@ pipeline {
 
                    def uploadSpec = """{
                        "files": [{
-                           "pattern": "**/target/*.jar",
+                           "pattern": "?",
                            "target": "example-repo-local" },
                                  {
-                          "pattern": "**/target/*.pom",
+                          "pattern": "?",
                           "target": "example-repo-local"},
                                  {
-                          "pattern": "**/target/*.war",
+                          //"pattern": "?",
                           "target": "example-repo-local"
                                 }]
                                    }"""
-                   
-                   server.upload spec: uploadSpec, buildInfo: buildInfo
+                   //Note:?=**///target/*.jar
+            /*       server.upload spec: uploadSpec, buildInfo: buildInfo
                    server.publishBuildInfo buildInfo      
                        }
                    }
@@ -76,12 +75,6 @@ pipeline {
                    }
               }
                                                }
-          }
-     
-post {
-       failure {
-      bat 'curl --request POST --url "https://narendrakumar02.atlassian.net/jira" --user "narendrakumar02@nagarro.com:cEerNJ7f2dtsmjHz1UjBE1EC" --header "Accept:application/json" --header "Content-Type:application/json" --data {"fields":{"project":{"key":"JWA"},"summary":"created for j","description":"Created for j","issuetype":{"name":"Task"}}}'
-           
-       }
-   }           
+          }  */
+     }
 }
