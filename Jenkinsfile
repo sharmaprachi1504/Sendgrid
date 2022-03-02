@@ -25,7 +25,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 
-                sh 'mvn sonar:sonar -Dsonar.host.url=http:// 192.168.43.229:8085'
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.43.229:8085'
                  }
                                     }//docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube:5.5
                                     
