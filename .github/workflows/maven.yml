@@ -37,5 +37,5 @@ jobs:
       uses: peter-evans/sendgrid-action@v1
       env:
         SENDGRID_API_KEY: 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 
-        SCRIPT_FILEPATH: ./some-path/email-sending-script.js
+       #SCRIPT_FILEPATH: ./some-path/email-sending-script.js
     
