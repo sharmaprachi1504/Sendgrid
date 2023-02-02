@@ -1,11 +1,11 @@
 #! /usr/bin/env node
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const msg = {
-    to: 'rexzoneandothers@gmail.com',
-    from: 'narendra.kumar02@nagarro.com',
+    to: 'sharmaprachi1504@gmail.com',
+    from: 'prachi.sharma01@nagarro.com',
     subject: 'Hello world',
     text: 'Hello plain world!',
     html: '<p>Hello HTML world!</p>',
