@@ -38,6 +38,6 @@ jobs:
     - name: SendGrid
       uses: peter-evans/sendgrid-action@v1
       env:
-        SENDGRID_API_KEY: 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 
+        SENDGRID_API_KEY: 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 
        #SCRIPT_FILEPATH: ./some-path/email-sending-script.js
     
